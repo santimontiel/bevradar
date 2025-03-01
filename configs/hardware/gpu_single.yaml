@@ -1,0 +1,7 @@
+dataset:
+  batch_size: 1
+  num_workers: 4
+
+trainer:
+  devices: 1
+  strategy: "auto"

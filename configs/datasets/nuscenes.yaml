@@ -1,0 +1,17 @@
+dataset:
+  name: "NuScenesDataset"
+  path: "/data/nuscenes"
+  version: "v1.0-trainval"
+  use_camera: true
+  use_radar: true
+  use_lidar: false
+  optimization_target: "vehicle"
+  x_bounds: ${bev_grid.x_bounds}
+  y_bounds: ${bev_grid.y_bounds}
+  z_bounds: ${bev_grid.z_bounds}
+  batch_size: 1
+  num_workers: 0
+  limit_pct_batches: 1.0
+  mean: [0.485, 0.456, 0.406]
+  std: [0.229, 0.224, 0.225]
+  sequence_length: 1

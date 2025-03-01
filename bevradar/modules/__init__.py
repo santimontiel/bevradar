@@ -1,0 +1,1 @@
+from bevradar.modules.base import BaseModule as SegmentationModule

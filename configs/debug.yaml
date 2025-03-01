@@ -1,0 +1,4 @@
+dataset:
+  version: "v1.0-mini"
+  batch_size: 2
+  num_workers: 0

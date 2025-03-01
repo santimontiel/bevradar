@@ -1,0 +1,12 @@
+lightning
+opencv-python
+wandb
+rich
+torchinfo
+moviepy
+imageio
+timm
+transformers
+segmentation_models_pytorch
+omegaconf
+spconv-cu120

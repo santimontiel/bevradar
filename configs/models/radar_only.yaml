@@ -1,0 +1,23 @@
+model:
+  name: "RadarSegmentationModel"
+  radar_channels: 256
+  latent_channels: 256
+
+  radar_encoder:
+    num_features: 42
+    hidden_dim: 128
+    out_channels: "${model.radar_channels}"
+    kernel_size: 7
+    grid_size: 3.5
+
+  decoder:
+    in_channels: "${model.latent_channels}"
+    encoder_channels: [384, 512, 768]
+
+  head:
+    in_channels: ${model.latent_channels}
+    classes: ["vehicle"]
+    grid_transform:
+      input_scope: ["${latent_grid.x_bounds}", "${latent_grid.y_bounds}"]
+      output_scope: ["${bev_grid.x_bounds}", "${bev_grid.y_bounds}"]
+      prescale_factor: 1

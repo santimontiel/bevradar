@@ -1,0 +1,1 @@
+from bevradar.models.builder import build_model_from_config

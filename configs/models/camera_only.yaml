@@ -1,0 +1,46 @@
+model:
+  name: "CameraSegmentationModel"
+  camera_channels: 256
+  latent_channels: 256
+
+  image_encoder:
+    backbone:
+      backbone_name: "efficientvit_l2.r384_in1k"
+      out_indices: [-3, -2, -1]
+      pretrained: true
+
+    neck:
+      in_channels: [128, 256, 512]
+      out_channels: 256
+      start_level: 0
+      num_outs: 3
+
+    fpa:
+      embed_dim: 256
+      num_blocks: 2
+      num_heads: 8
+      num_levels: 2
+      num_points: 8
+
+    vtransform:
+      in_channels: 256
+      out_channels: "${model.camera_channels}"
+      image_size: "${image.final_size}"
+      feature_size: ["${div:${image.final_size[0]}, ${image.feature_downsample}}", "${div:${image.final_size[1]}, ${image.feature_downsample}}"]
+      xbound: ${latent_grid.x_bounds}
+      ybound: ${latent_grid.y_bounds}
+      zbound: [-10.0, 10.0, 20.0]
+      dbound: [1.0, 60.0, 0.5]
+      downsample: 1
+
+  decoder:
+    in_channels: "${model.latent_channels}"
+    encoder_channels: [384, 512, 768]
+
+  head:
+    in_channels: ${model.latent_channels}
+    classes: ["vehicle"]
+    grid_transform:
+      input_scope: ["${latent_grid.x_bounds}", "${latent_grid.y_bounds}"]
+      output_scope: ["${bev_grid.x_bounds}", "${bev_grid.y_bounds}"]
+      prescale_factor: 1

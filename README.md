@@ -17,5 +17,6 @@ Official implementation for **BEVRadar: A Multi-Modal Baseline for Bird's Eye Vi
 ![Qualitative results](assets/qualitative_results.png)
 
 ## News
+- [01 Mar 25] We release the code for our models. Check the [bevradar](bevradar) folder! Model checkpoints will be available soon.
 - [30 Jan 25] Our paper is currently **in submission**. Code release soon! 🔜
 

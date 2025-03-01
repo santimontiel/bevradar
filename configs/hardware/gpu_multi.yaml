@@ -1,0 +1,7 @@
+dataset:
+  batch_size: 4
+  num_workers: 8
+
+trainer:
+  devices: 4
+  strategy: "ddp_find_unused_parameters_true"
