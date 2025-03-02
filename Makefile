@@ -41,7 +41,7 @@ jupyter:
 	$(call run_docker, "jupyter notebook")
 
 train:
-	$(call run_docker, "sh entrypoint.sh && python tools/train.py configs/base.yaml")
+	$(call run_docker, "source entrypoint.sh && python tools/train.py configs/base.yaml")
 
 DIRS_TO_CLEAN = "__pycache__" ".pytest_cache" "build" "$(IMAGE_NAME).egg-info"
 clear:
