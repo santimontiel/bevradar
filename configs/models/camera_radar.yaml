@@ -1,6 +1,6 @@
 model:
   name: "CameraRadarModel"
-  camera_channels: 256
+  camera_channels: 80
   radar_channels: 256
   latent_channels: 256
 

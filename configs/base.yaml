@@ -1,8 +1,8 @@
 base_configs:
   - configs/datasets/nuscenes.yaml
-  - configs/models/radar_only.yaml
-  - configs/hardware/gpu_single.yaml
-  - configs/debug.yaml
+  - configs/models/camera_radar.yaml
+  - configs/hardware/gpu_multi.yaml
+  # - configs/debug.yaml
 
 random_seed: 42
 device: "cuda"
@@ -24,9 +24,9 @@ latent_grid:
   y_bounds: [-51.2, 51.2, 0.4]
 
 wandb:
-  enable: true
+  enabled: true
   project: "bevradar"
-  experiment_name: "camera_only"
+  experiment_name: "ckpt_camera_radar"
   tags: ["camera_radar", "nuscenes"]
 
 # Optimization.

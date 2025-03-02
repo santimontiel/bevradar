@@ -5,7 +5,7 @@ from omegaconf import OmegaConf
 
 from bevradar.layers.image_encoders import SwinTransformerFPN, TimmEncoderFPN, TimmEncoderAttnFPN
 from bevradar.layers.radar_encoders import PTv3ResConvEncoder
-from bevradar.layers.lxlv2_fuser import CSAFusion
+from bevradar.layers.gated_fusion import GatingFusion
 from bevradar.layers.attention_unet import AttentionUNet
 from bevradar.layers.segmentation_head import BEVSegmentationHead
 
@@ -18,9 +18,9 @@ class CameraRadarModel(nn.Module):
         self.image_encoder = TimmEncoderAttnFPN(cfg.image_encoder)
         self.radar_encoder = PTv3ResConvEncoder(cfg.radar_encoder)
 
-        self.fuser = CSAFusion(
+        self.fuser = GatingFusion(
             in_channels=cfg.fuser.in_channels,
-            channels=cfg.fuser.out_channels,
+            out_channels=cfg.fuser.out_channels,
         )
 
         self.decoder = AttentionUNet(
@@ -45,7 +45,7 @@ class CameraRadarModel(nn.Module):
 
         camera_features = self.image_encoder(data)
         radar_features = self.radar_encoder(data["radar_points"])
-        fused_features = self.fuser(camera_features, radar_features)
+        fused_features = self.fuser(camera_features, radar_features)["out"]
         aux_logits = self.aux_head(fused_features)
         fused_features = self.decoder(fused_features)
         logits = self.head(fused_features)
